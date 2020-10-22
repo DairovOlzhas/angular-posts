@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService extends MainService {
   isLoggedIn = false;
   currentUser: User = {
@@ -58,7 +59,6 @@ export class AuthService extends MainService {
       password: '',
       email: '',
       albums: null
-
     };
   }
 

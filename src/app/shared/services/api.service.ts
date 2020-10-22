@@ -12,13 +12,6 @@ export class ApiService extends MainService {
     super(http);
   }
 
-  auth(login: any, pasword: any): Promise<IAuthResponse> {
-    return this.post('http://127.0.0.1:3000/sign-in', {
-      username: login,
-      password: pasword
-    });
-  }
-
   register(user: User): Promise<User> {
     return this.post(`http://127.0.0.1:3000/users`, user);
   }
@@ -37,10 +30,6 @@ export class ApiService extends MainService {
 
   getPost(postId: number): Promise<Post> {
     return this.get(`http://127.0.0.1:3000/posts/${postId}`, {});
-  }
-
-  getPostsListFilteredByAuthor(user: User): Promise<Post[]> {
-    return this.get(`http://127.0.0.1:3000/posts?userId=${user.id}`, {});
   }
 
   createPost(post: Post): Promise<Post> {

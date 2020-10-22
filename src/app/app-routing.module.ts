@@ -19,7 +19,6 @@ const routes: Routes = [
         if(path == '' || path == '/'){
           return {consumed: url};
         }
-
       }
       return null;
     },
@@ -28,7 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'albums',
-    component: AlbumsComponent
+    component: AlbumsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

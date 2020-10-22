@@ -17,21 +17,21 @@ export class AlbumsComponent implements OnInit {
   constructor(private provider: ApiService, private authService: AuthService) {
   }
 
-  ngOnInit(): void {
-    this.getListUsers()
+  async ngOnInit(): Promise<void> {
+    await this.getListUsers()
   }
 
 
-  getListUsers() {
-    this.provider.getUsersList({}).then(
-      res => {
+  async getListUsers() {
+    await this.provider.getUsersList({}).then(
+      async res => {
         this.users = res
         for (let user of this.users) {
-          this.provider.getUserAlbumsList(user).then(
-            resp => {
+          await this.provider.getUserAlbumsList(user).then(
+            async resp => {
               user.albums = resp
-              for(let album of user.albums) {
-                this.provider.getAlbumPhotosList(album).then(
+              for (let album of user.albums) {
+                await this.provider.getAlbumPhotosList(album).then(
                   response => {
                     album.photos = response
                   }
