@@ -1,0 +1,96 @@
+<div class="main-container">
+  <div class="posts-container">
+    <div class="adding-post">
+      <mat-form-field>
+        <input type="text" [(ngModel)]="searchText" (ngModelChange)="handleChange()" matInput placeholder="search query">
+      </mat-form-field>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Write your post
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form [formGroup]="postForm" (ngSubmit)="addPost()" class="form">
+          <div class="commenter">
+            <mat-form-field>
+              <input type="text" formControlName="title" matInput placeholder="Title">
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Send Post</button>
+          </div>
+          <mat-form-field class="textarea">
+          <textarea formControlName="body" matInput cdkTextareaAutosize
+                    cdkAutosizeMinRows="5"
+                    cdkAutosizeMaxRows="5" placeholder="Your post here.."></textarea>
+          </mat-form-field>
+        </form>
+
+
+      </mat-expansion-panel>
+
+
+    </div>
+    <div class="cards-container">
+      <ng-container *ngFor="let post of posts">
+        <div class="card-container">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{post.user.name}}</mat-card-title>
+              <mat-card-subtitle>{{post.user.username}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-card-title>{{post.title}}</mat-card-title>
+              <p>
+                {{post.body}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions *ngIf="!showComment(post.id)">
+              <button mat-button (click)="getComments(post)">OPEN COMMENTS</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="this.selectedPost != null" class="commenting-container">
+    <mat-card-title>Comments</mat-card-title>
+    <button mat-flat-button (click)="closeComments()">close comments</button>
+    <div class="comments-container">
+
+
+      <ng-container *ngFor="let comment of comments">
+        <div class="comment-container">
+          <mat-card>
+            <mat-card-content>
+              <mat-card-subtitle>{{comment.email}}</mat-card-subtitle>
+              <mat-card-subtitle>{{comment.name}}</mat-card-subtitle>
+              <p>
+                {{comment.body}}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </ng-container>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="addComment()" class="form">
+      <mat-form-field class="textarea">
+        <textarea formControlName="body" matInput cdkTextareaAutosize
+                  cdkAutosizeMinRows="5"
+                  cdkAutosizeMaxRows="5" placeholder="Your comment here.."></textarea>
+      </mat-form-field>
+      <div class="commenter">
+        <mat-form-field>
+          <input type="text" formControlName="name" matInput placeholder="Name">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" formControlName="email" matInput placeholder="Email">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Send Comment</button>
+      </div>
+    </form>
+  </div>
+
+
+</div>

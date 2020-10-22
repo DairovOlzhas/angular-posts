@@ -1,0 +1,8 @@
+<mat-toolbar>
+  <button mat-button routerLink="">Posts</button>
+  <button mat-button routerLink="albums" *ngIf="logged()">Albums</button>
+  <span class="example-spacer"></span>
+  <span *ngIf="logged()">{{this.authService.currentUser.name}}</span>
+  <span class="example-spacer"></span>
+  <button mat-stroked-button (click)="logout()" *ngIf="logged()">Logout</button>
+</mat-toolbar>
